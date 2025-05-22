@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discover Lanao del Norte</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(120deg, #e0f7fa, #f1f8e9); /* Subtle gradient */
+            background-attachment: fixed; /* Makes the gradient stay fixed during scrolling */
+        }
+
+        h3 {
+            font-size: 2rem; /* Adjust font size for better visibility */
+            color: #28a745; /* Vibrant green color */
+            text-align: center; /* Center-align the text */
+            margin-bottom: 20px; /* Add spacing below the heading */
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Subtle shadow for better readability */
+        }
+
+        #places h3 {
+            margin-top: 20px; /* Add spacing above the heading for consistency */
+        }
+
+        header {
+            background: linear-gradient(90deg, #28a745, #218838); /* Vibrant green gradient */
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        nav {
+            background: #28a745; /* Vibrant green */
+            padding: 10px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            transition: color 0.3s ease, transform 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: #ffc107; /* Complementary gold color */
+            transform: scale(1.1);
+        }
+
+        nav a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: #ffc107; /* Gold underline for active link */
+            border-radius: 2px;
+            animation: slideIn 0.3s ease-in-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        .hero {
+            background: url('images/ldn.jpg') no-repeat center center/cover;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+
+        .hero:hover {
+            transform: scale(1.05);
+            filter: brightness(0.9);
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            text-align: center;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content {
+            padding: 20px;
+            text-align: center; /* Center-align content within sections */
+            display: flex; /* Use flexbox for consistent layout */
+            flex-direction: column; /* Arrange items vertically */
+            align-items: center; /* Center items horizontally */
+        }
+
+        .places {
+            display: flex; /* Use flexbox for horizontal alignment */
+            flex-wrap: wrap; /* Allow items to wrap onto the next line if needed */
+            justify-content: center; /* Center items horizontally */
+            gap: 20px; /* Add spacing between items */
+            padding: 20px;
+        }
+
+        .place {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 300px; /* Fixed width for consistent alignment */
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            text-align: center; /* Center-align text inside the place card */
+        }
+
+        .place img {
+            width: 100%; /* Make the image take the full width of the card */
+            height: 200px; /* Fixed height for consistency */
+            object-fit: cover; /* Ensure the image is cropped properly */
+            transition: filter 0.3s ease;
+        }
+
+        .place:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .place:hover img {
+            filter: brightness(0.8);
+        }
+
+        .place h4 {
+            margin: 10px 0;
+            color: #28a745; /* Vibrant green */
+            transition: color 0.3s ease;
+        }
+
+        .place:hover h4 {
+            color: #ffc107; /* Complementary gold color */
+        }
+
+        .place p {
+            margin: 10px;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .responsive-video {
+            width: 100%; /* Adjust width for responsiveness */
+            max-width: 300px; /* Limit maximum width */
+            height: 200px; /* Fixed height */
+            border-radius: 10px; /* Rounded corners */
+            margin: 20px 0; /* Add spacing */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animation on hover */
+        }
+
+        .responsive-video:hover {
+            transform: scale(1.05); /* Slight zoom effect */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+        }
+
+        footer {
+            background: linear-gradient(90deg, #218838, #28a745); /* Gradient for footer */
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        footer p:hover {
+            color: #ffc107; /* Complementary gold color */
+            transition: color 0.3s ease;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none; /* Ensure modal is hidden by default */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background: rgba(0, 0, 0, 0.8); /* Semi-transparent black background */
+            animation: fadeIn 0.5s ease-in-out;
+            display: flex; /* Flexbox for centering */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.hidden {
+            display: none; /* Ensure modal remains hidden when the hidden class is applied */
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.5s ease-in-out;
+        }
+
+        .modal.hidden .modal-content {
+            animation: slideDown 0.5s ease-in-out;
+        }
+
+        .modal-content img {
+            display: block; /* Ensures the image is treated as a block element */
+            margin: 0 auto; /* Centers the image horizontally */
+            width: 80%; /* Adjusted width to make it smaller */
+            height: auto; /* Maintain aspect ratio */
+            max-height: 300px; /* Limit the maximum height */
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-content img:hover {
+            transform: scale(1.05);
+        }
+
+        .modal-content h3 {
+            color: #28a745;
+            margin-bottom: 10px;
+        }
+
+        .modal-content p {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #ff0000;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+        }
+
+        html {
+            scroll-behavior: smooth; /* Enables smooth scrolling */
+        }
+
+        /* General Styles for Images and Videos */
+        .responsive-img {
+            width: 80%; /* Adjust width for responsiveness */
+            max-width: 600px; /* Limit maximum width */
+            border-radius: 10px; /* Rounded corners */
+            margin: 20px 0; /* Add spacing */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animation on hover */
+        }
+
+        .responsive-img:hover {
+            transform: scale(1.05); /* Slight zoom effect */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+        }
+
+        .responsive-video {
+            width: 100%; /* Adjust width for responsiveness */
+            max-width: 300px; /* Limit maximum width */
+            height: 200px; /* Fixed height */
+            border-radius: 10px; /* Rounded corners */
+            margin: 20px 0; /* Add spacing */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animation on hover */
+        }
+
+        .responsive-video:hover {
+            transform: scale(1.05); /* Slight zoom effect */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+        }
+
+        /* Animation for Images and Videos */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .responsive-img, .responsive-video {
+            animation: fadeInUp 0.8s ease-in-out; /* Apply fade-in animation */
+        }
+
+        /* Contact Section Styles */
+        #contact {
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            max-width: 800px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .contact-details {
+            margin-bottom: 20px;
+            font-size: 1rem;
+            color: #555;
+        }
+
+        .contact-details p {
+            margin: 5px 0;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact-form label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: #28a745;
+            box-shadow: 0 4px 10px rgba(40, 167, 69, 0.2);
+            outline: none;
+        }
+
+        .contact-form button {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .contact-form button:hover {
+            background: #218838;
+            transform: scale(1.05);
+        }
+
+        #confirmationMessage {
+            margin-top: 20px;
+            padding: 15px;
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 1rem;
+            display: none; /* Hidden by default */
+        }
+
+        #confirmationMessage p {
+            margin: 0;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+    <script>
+        const placeDetails = {
+            tinago: {
+                title: "Tinago Falls",
+                description: "Tinago Falls is a hidden gem surrounded by lush greenery. Its name, 'Tinago,' means 'hidden' in Filipino, and it lives up to its name with its secluded location. Visitors can enjoy swimming in its cool waters and marvel at its breathtaking beauty.",
+                image: "images/Tinago_Falls.jpg"
+            },
+            mariaCristina: {
+                title: "Maria Cristina Falls",
+                description: "Maria Cristina Falls, also known as the 'Twin Falls,' is a majestic waterfall that powers a hydroelectric plant. It is a symbol of natural beauty and industrial progress, offering a stunning view for visitors.",
+                image: "images/mariafalls.webp"
+            },
+            pagayawan: {
+                title: "Pagayawan Falls",
+                description: "Pagayawan Falls is a serene and picturesque destination. Surrounded by untouched nature, it is the perfect spot for those seeking peace and tranquility.",
+                image: "images/pagayawan.jpg"
+            },
+            mimbalot: {
+                title: "Mimbalot Falls",
+                description: "Mimbalot Falls is one of Iligan City's most accessible waterfalls, offering a serene escape with its cascading waters and lush surroundings. It's a perfect spot for picnics and nature photography.",
+                image: "images/mimbalot.jpg"
+            }
+        };
+
+        function showModal(place) {
+            const modal = document.getElementById("modal");
+            const title = document.getElementById("modal-title");
+            const description = document.getElementById("modal-description");
+            const image = document.getElementById("modal-image");
+
+            // Set modal content
+            title.textContent = placeDetails[place].title;
+            description.textContent = placeDetails[place].description;
+            image.src = placeDetails[place].image;
+            image.style.display = "block"; // Show the image only when content is set
+
+            // Show modal
+            modal.classList.remove("hidden");
+            modal.style.display = "flex";
+        }
+
+        function closeModal() {
+            const modal = document.getElementById("modal");
+            const image = document.getElementById("modal-image");
+
+            // Add exit animation
+            modal.classList.add("hidden");
+
+            // Wait for animation to complete before hiding the modal
+            setTimeout(() => {
+                modal.style.display = "none";
+                modal.classList.remove("hidden");
+                image.style.display = "none"; // Hide the image when modal is closed
+            }, 500); // Match the duration of the fadeOut animation
+        }
+
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            const modal = document.getElementById("modal");
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
+
+        // Highlight the active navigation link
+        const navLinks = document.querySelectorAll("nav a");
+
+        window.addEventListener("scroll", () => {
+            let currentSection = "";
+
+            document.querySelectorAll("section").forEach((section) => {
+                const sectionTop = section.offsetTop - 50; // Adjust for header height
+                if (window.scrollY >= sectionTop) {
+                    currentSection = section.getAttribute("id");
+                }
+            });
+
+            navLinks.forEach((link) => {
+                link.classList.remove("active");
+                if (link.getAttribute("href").includes(currentSection)) {
+                    link.classList.add("active");
+                }
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        navLinks.forEach((link) => {
+            link.addEventListener("click", (event) => {
+                event.preventDefault();
+                const targetId = link.getAttribute("href").substring(1);
+                const targetSection = document.getElementById(targetId);
+
+                if (targetSection) {
+                    window.scrollTo({
+                        top: targetSection.offsetTop - 50, // Adjust for header height
+                        behavior: "smooth",
+                    });
+                }
+            });
+        });
+
+        // Contact form submission handler
+        document.getElementById("contactForm").addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent the default form submission behavior
+
+            // Show the confirmation message
+            const confirmationMessage = document.getElementById("confirmationMessage");
+            confirmationMessage.style.display = "block";
+
+            // Clear the form fields
+            document.getElementById("name").value = "";
+            document.getElementById("email").value = "";
+            document.getElementById("message").value = "";
+
+            // Hide the confirmation message after 5 seconds
+            setTimeout(() => {
+                confirmationMessage.style.display = "none";
+            }, 5000);
+        });
+
+        function logout() {
+            // Simulate a logout action
+            alert("You have been logged out.");
+            // Redirect to a login page or home page (optional)
+            window.location.href = "index.html"; // Replace with your login page URL
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Welcome to Lanao del Norte</h1>
+        <p>The Land of Beauty and Bounty</p>
+    </header>
+    <nav>
+        <a href="#about">About</a>
+        <a href="#culture">Culture</a>
+        <a href="#festivals">Festivals</a>
+        <a href="#cuisine">Cuisine</a>
+        <a href="#places">Tourist Spots</a>
+        <a href="#activities">Activities</a>
+        <a href="#contact">Contact</a>
+        <a href="#logout" onclick="logout()">Logout</a>
+    </nav>
+    <section class="hero">
+        <h2>Explore the Wonders of Lanao del Norte</h2>
+    </section>
+    <section id="about" class="content">
+        <h3>About Lanao del Norte</h3>
+        <p>Lanao del Norte is a province in the Philippines known for its stunning landscapes, rich culture, and warm hospitality. From majestic waterfalls to serene beaches, it offers a perfect escape for nature lovers and adventure seekers.</p>
+    </section>
+
+    <section id="culture" class="content">
+        <h3>Culture and Heritage</h3>
+        <p>Lanao del Norte is home to a diverse mix of cultures, including the Maranao people, known for their vibrant traditions and artistry. The province is famous for the "Torogan," a traditional Maranao house adorned with intricate carvings and colorful designs. Visitors can also witness the "Kawayan Torogan," a symbol of Maranao royalty.</p>
+        <div class="places">
+            <div class="place" onclick="showModal('culture')">
+                <img src="images/torogan.jpg" alt="Culture and Heritage">
+                <h4>Torogan</h4>
+                <p>The "Torogan" is a traditional Maranao house adorned with intricate carvings and colorful designs, symbolizing Maranao royalty.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="festivals" class="content">
+        <h3>Festivals and Celebrations</h3>
+        <p>The province comes alive during its festivals, showcasing its rich heritage and community spirit. The "Sagayan Festival" is a colorful celebration featuring traditional dances and music, while the "Araw ng Lanao del Norte" highlights the province's vibrant culture and local talents.</p>
+        <div class="places">
+            <div class="place" onclick="showModal('sagayanFestival')">
+                <img src="images/Sagayan-Festival-2024-final.jpg" alt="Sagayan Festival">
+                <h4>Sagayan Festival</h4>
+                <p>A colorful celebration featuring traditional dances and music that showcases the rich heritage of Lanao del Norte.</p>
+            </div>
+            <div class="place">
+                <!-- Embedded YouTube Video -->
+                <iframe 
+                    class="responsive-video"
+                    src="https://www.youtube.com/embed/LLmRhTz9-JI?start=0" 
+                    title="Festivals in Lanao del Norte" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+                <h4>Araw ng Lanao del Norte</h4>
+                <p>A grand celebration commemorating the province's founding anniversary with parades, cultural showcases, and activities.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="cuisine" class="content">
+        <h3>Local Cuisine</h3>
+        <p>Lanao del Norte offers a unique culinary experience with its blend of Maranao and Filipino flavors. Must-try dishes include "Palapa," a spicy condiment made from scallions and chili, and "Piaparan," a coconut-based chicken or fish dish. Don't forget to sample the local delicacies like "Dodol" and "Pastil."</p>
+        <div class="places">
+            <div class="place" onclick="showModal('palapa')">
+                <img src="images/Palapa_(Philippines).jpg" alt="Palapa">
+                <h4>Palapa</h4>
+                <p>A spicy condiment made from scallions, ginger, and chili, adding a burst of flavor to any meal.</p>
+            </div>
+            <div class="place" onclick="showModal('piaparan')">
+                <img src="images/Piaparan_a_Manok.jpg" alt="Piaparan">
+                <h4>Piaparan</h4>
+                <p>A coconut-based chicken or fish dish known for its rich and creamy taste.</p>
+            </div>
+            <div class="place" onclick="showModal('dodol')">
+                <img src="images/Dodol_Side_View.jpg" alt="Dodol">
+                <h4>Dodol</h4>
+                <p>A sticky rice cake that is a favorite local delicacy.</p>
+            </div>
+            <div class="place" onclick="showModal('pastil')">
+                <img src="images/Pastil_Mindanao1.jpg" alt="Pastil">
+                <h4>Pastil</h4>
+                <p>A rice dish wrapped in banana leaves, perfect for a quick and delicious meal.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="places" class="content">
+        <h3>Tourist Spots</h3>
+        <div class="places">
+            <div class="place" onclick="showModal('tinago')">
+                <img src="images/Tinago_Falls.jpg" alt="Tinago Falls">
+                <h4>Tinago Falls</h4>
+                <p>A hidden gem surrounded by lush greenery, Tinago Falls is a must-visit destination for its breathtaking beauty.</p>
+            </div>
+            <div class="place" onclick="showModal('mariaCristina')">
+                <img src="images/mariafalls.webp" alt="Maria Cristina Falls">
+                <h4>Maria Cristina Falls</h4>
+                <p>Known as the "Twin Falls," this majestic waterfall is a source of hydroelectric power and a sight to behold.</p>
+            </div>
+            <div class="place" onclick="showModal('pagayawan')">
+                <img src="images/pagayawan.jpg" alt="Pagayawan Falls">
+                <h4>Pagayawan Falls</h4>
+                <p>Experience the raw beauty of nature at Pagayawan Falls, a serene and picturesque destination.</p>
+            </div>
+            <div class="place" onclick="showModal('mimbalot')">
+                <img src="images/mimbalot.jpg" alt="Mimbalot Falls">
+                <h4>Mimbalot Falls</h4>
+                <p>Mimbalot Falls is one of Iligan City's most accessible waterfalls, offering a serene escape with its cascading waters and lush surroundings. It's a perfect spot for picnics and nature photography.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="activities" class="content">
+        <h3>Activities and Adventures</h3>
+        <p>For adventure seekers, Lanao del Norte offers a variety of activities such as trekking, kayaking, and zip-lining. Explore the province's lush forests, pristine rivers, and scenic mountain trails. Whether you're looking for relaxation or adrenaline-pumping adventures, Lanao del Norte has something for everyone.</p>
+    </section>
+
+    <section id="contact" class="content">
+        <h3>Contact Us</h3>
+        <p>If you have any questions, suggestions, or inquiries, feel free to reach out to us. We'd love to hear from you!</p>
+        <div class="contact-details">
+            <p><strong>Email:</strong> info@discoverlanaodelnorte.com</p>
+            <p><strong>Phone:</strong> +63 912 345 6789</p>
+            <p><strong>Address:</strong> Lanao del Norte Tourism Office, Iligan City, Philippines</p>
+        </div>
+        <form class="contact-form" id="contactForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" placeholder="Your Name" required>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Your Email" required>
+            
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
+            
+            <button type="submit">Send Message</button>
+        </form>
+        <div id="confirmationMessage" class="hidden">
+            <p>Thank you for reaching out! We'll get back to you as soon as possible.</p>
+        </div>
+    </section>
+    <!-- Modal Structure -->
+    <div id="modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <img id="modal-image" src="" alt="Place Image" style="display: none;"> <!-- Hide image by default -->
+            <h3 id="modal-title"></h3>
+            <p id="modal-description"></p>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2025 Discover Lanao del Norte. All rights reserved.</p>
+    </footer>
+</body>
+</html>
